@@ -3,6 +3,7 @@ package Poet::Environment;
 use Carp;
 use File::Slurp;
 use Poet::Moose;
+use Function::Parameters;
 use Poet::Tools qw(can_load catdir);
 
 has 'app_name'    => ( required => 1 );

@@ -3,7 +3,8 @@ package Poet::Moose;    ## no critic (Moose::RequireMakeImmutable)
 use Moose                      ();
 use MooseX::HasDefaults::RO    ();
 use MooseX::StrictConstructor  ();
-use Method::Signatures::Simple ();
+#use Method::Signatures::Simple ();
+use Function::Parameters;
 use Moose::Exporter;
 use strict;
 use warnings;
@@ -13,7 +14,8 @@ sub init_meta {
     my $class     = shift;
     my %params    = @_;
     my $for_class = $params{for_class};
-    Method::Signatures::Simple->import( into => $for_class );
+    #    Method::Signatures::Simple->import( into => $for_class );
+    #Function::Parameters->
     Moose->init_meta(@_);
     MooseX::StrictConstructor->import( { into => $for_class } );
     MooseX::HasDefaults::RO->import( { into => $for_class } );

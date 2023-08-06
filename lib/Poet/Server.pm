@@ -1,7 +1,8 @@
 package Poet::Server;
 
 use Poet qw($conf $poet);
-use Method::Signatures::Simple;
+#use Method::Signatures::Simple;
+use Function::Parameters;
 use Class::Load;
 use Class::MOP;
 use strict;

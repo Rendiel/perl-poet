@@ -1,7 +1,8 @@
 package Poet::Cache;    ## no critic (Moose::RequireMakeImmutable)
 
 use Poet qw($conf $poet);
-use Method::Signatures::Simple;
+#use Method::Signatures::Simple;
+use Function::Parameters;
 use Moose;
 
 extends 'CHI';

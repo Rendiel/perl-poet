@@ -2,13 +2,18 @@ package Poet::Script;
 
 use Cwd qw(realpath);
 use File::Spec::Functions qw(rel2abs);
-use Method::Signatures::Simple;
+#use Method::Signatures::Simple;
+use Function::Parameters;
 use Poet::Environment;
 use Poet::Tools qw(can_load dirname read_file);
 use strict;
 use warnings;
 
-method import ($pkg:) {
+#use Exporter;
+#our @EXPORT = qw ($cache $conf $poet $log );
+
+#method import ($pkg:) {
+method import(@params) {
     unless ( Poet::Environment->current_env ) {
         my $root_dir = determine_root_dir();
         my $poet     = initialize_with_root_dir($root_dir);
@@ -16,7 +21,7 @@ method import ($pkg:) {
     Poet::Environment->current_env->importer->export_to_level( 1, @_ );
 }
 
-func initialize_with_root_dir ($root_dir) {
+fun initialize_with_root_dir ($root_dir) {
     my ($app_name) = ( read_file("$root_dir/.poet_root") =~ /app_name: (.*)/ )
       or die "cannot find app_name in $root_dir/.poet_root";
 
@@ -26,7 +31,7 @@ func initialize_with_root_dir ($root_dir) {
     );
 }
 
-func determine_root_dir () {
+fun determine_root_dir () {
 
     # Search for .poet_root upwards from current directory, using rel2abs
     # first, then realpath.
@@ -41,7 +46,7 @@ func determine_root_dir () {
     return $root_dir;
 }
 
-func search_upward ($path) {
+fun search_upward ($path) {
     my $count = 0;
     while ( realpath($path) ne '/' && $count++ < 10 ) {
         if ( -f "$path/.poet_root" ) {

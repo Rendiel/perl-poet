@@ -1,7 +1,9 @@
 package Poet;
 
 use Poet::Environment;
-use Method::Signatures::Simple;
+#use Method::Signatures::Simple;
+use Function::Parameters;
+
 use strict;
 use warnings;
 

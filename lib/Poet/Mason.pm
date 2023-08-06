@@ -2,7 +2,8 @@ package Poet::Mason;    ## no critic (Moose::RequireMakeImmutable)
 
 use Poet qw($conf $poet);
 use List::MoreUtils qw(uniq);
-use Method::Signatures::Simple;
+#use Method::Signatures::Simple;
+use Function::Parameters;
 use Moose;
 use Try::Tiny;
 
