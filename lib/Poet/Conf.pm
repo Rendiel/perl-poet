@@ -4,6 +4,7 @@ use Carp;
 use Cwd qw(realpath);
 use Data::Rmap qw(rmap_scalar);
 use File::Spec::Functions qw(catfile);
+use Function::Parameters;
 use Guard;
 use Poet::Moose;
 use Poet::Tools qw(read_file);
@@ -22,7 +23,7 @@ has 'root_dir'       => ( required => 1 );
 
 our %get_cache;
 
-method BUILD () {
+method BUILD (@vars) {
     $self->{data} = $self->read_conf_data();
 }
 
@@ -161,7 +162,7 @@ method _flush_get_cache () {
     %get_cache = ();
 }
 
-method get ($key, $default) {
+method get ($key, $default = undef) {
     croak "key required" if !defined($key);
     return $get_cache{$key} if exists( $get_cache{$key} );
 
@@ -176,9 +177,9 @@ method get ($key, $default) {
     return defined($value) ? $value : $default;
 }
 
-method _get_dotted_key ($key, $default) {
+method _get_dotted_key ($key, $default = undef) {
     my ( $rest, $last ) = ( $key =~ /^(.*)\.([^\.]+)$/ );
-    my $value = $self->get_hash($rest)->{$last};
+    my $value = $self->get_hash($rest,undef)->{$last};
     return defined($value) ? $value : $default;
 }
 
@@ -202,7 +203,7 @@ method get_or_die ($key) {
     }
 }
 
-method get_list ($key, $default) {
+method get_list ($key, $default = undef) {
     if ( defined( my $value = $self->get($key) ) ) {
         if ( ref($value) eq 'ARRAY' ) {
             return $value;
@@ -221,8 +222,8 @@ method get_list ($key, $default) {
     }
 }
 
-method get_hash ($key, $default) {
-    if ( defined( my $value = $self->get($key) ) ) {
+method get_hash ($key, $default = undef) {
+    if ( defined( my $value = $self->get($key, undef) ) ) {
         if ( ref($value) eq 'HASH' ) {
             return $value;
         }

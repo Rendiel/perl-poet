@@ -1,16 +1,21 @@
 package Poet;
 
+use Data::Dumper;
 use Poet::Environment;
-#use Method::Signatures::Simple;
 use Function::Parameters;
+
+our $poet;
+our $conf;
+
+@EXPORT = qw($poet $conf);
 
 use strict;
 use warnings;
 
-method import ($class:) {
-    my $poet = Poet::Environment->current_env
+method import(@vars) {
+    $poet = Poet::Environment->current_env
       or die "environment has not been initialized!";
-    $poet->importer->export_to_level( 1, @_ );
+    $poet->importer->export_to_level( 1, @vars );
 }
 
 1;

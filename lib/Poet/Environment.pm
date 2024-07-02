@@ -61,8 +61,11 @@ method current_env ($class:) {
     return $current_env;
 }
 
-method BUILD () {
-    my $root_dir = $self->root_dir();
+method BUILD ( @params) {
+    my $root_dir = $params[0]->{'root_dir'};
+    my $app_name = $params[0]->{'app_name'};
+	
+	#    my $root_dir = $self->root_dir();
 
     # Unshift lib dir onto @INC
     #

@@ -3,6 +3,7 @@ package Poet::Import;
 use Carp;
 use Poet::Moose;
 use Try::Tiny;
+use Function::Parameters;
 use strict;
 use warnings;
 
